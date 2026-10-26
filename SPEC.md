@@ -50,7 +50,8 @@ Use `unit`, `integration`, and `e2e` pytest markers. Run `.venv/bin/python check
 ### Work record
 
 - Issue: [RPS-001: Play a round #1](https://github.com/kaw393939/is218rps005a/issues/1).
-- Pull request / CI: add actual URLs when they exist.
+- Pull request: [RPS-001: Play a round #2](https://github.com/kaw393939/is218rps005a/pull/2).
+- CI: [Python checks run](https://github.com/kaw393939/is218rps005a/actions/runs/40385386038).
 - Implementation: [game.py](game.py) implements all nine outcomes for independent rounds using the supplied server and interface.
 - Checks: `.venv/bin/python check.py` passed Black, Pylint, 23 non-browser tests, and 6 Chromium tests on 2026-10-26. [Unit and integration tests](tests/test_game.py) cover all nine literal outcomes and the real Rock-versus-Paper request. [Browser round and replay](tests/e2e/test_round.py) verifies a loss followed by a win using real rules. Supplied invalid/missing-input tests remain intact.
 - Review: inspected the changed code and both new test files against this spec; `git diff --check` passed. Changes are limited to the rules, feature tests, and this spec.
