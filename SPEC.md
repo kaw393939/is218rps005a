@@ -27,7 +27,12 @@ Results are from the **player’s perspective**. `determine_winner(player, compu
 
 ### Agreed plan
 
-Before implementation, predict one matchup and explain it with your local coding agent. Discuss a short plan and checks. Once it makes sense, ask the agent to replace this paragraph with the agreed plan, preserving the expected results above. Continue in the same chat.
+- Implement all nine outcomes above in `determine_winner(player, computer)` using the player's perspective.
+- Predicted example: the player chooses Rock and the computer chooses Paper. Paper covers Rock, so the computer wins and the function returns `lose`. A valid losing round is a positive case.
+- Keep the supplied interface and server. Display both choices and the correct result, and let the player start another independent round. No score or saved history.
+- Reject missing or unsupported moves, such as `banana`, with HTTP 400 and a helpful invalid-move message so the player can try again. Reuse the supplied validation checks.
+- Add nine explicit unit outcomes, a real request/result integration check, and a real-browser round with replay. Fix only the computer's random choice in request/browser tests; exercise the real rules.
+- Run `.venv/bin/python check.py` for formatting, analysis, non-browser tests, and Chromium tests. Review the diff against this spec, discuss the Rock-versus-Paper test, then have the student play and describe an actual round.
 
 ### Checks
 
@@ -44,7 +49,9 @@ Use `unit`, `integration`, and `e2e` pytest markers. Run `.venv/bin/python check
 
 ### Work record
 
-- Issue: add your own issue URL.
+- Issue: [RPS-001: Play a round #1](https://github.com/kaw393939/is218rps005a/issues/1).
 - Pull request / CI: add actual URLs when they exist.
-- Implementation: **Not implemented.** The shell is supplied; `game.py` is unfinished.
-- Checks: **Rules not verified.** Supplied request/browser tests cover the shell only. After implementation, record actual full-check results and your browser observations here; put detailed results in the PR. Passing formatting and analysis alone is not evidence of correct rules.
+- Implementation: [game.py](game.py) implements all nine outcomes for independent rounds using the supplied server and interface.
+- Checks: `.venv/bin/python check.py` passed Black, Pylint, 23 non-browser tests, and 6 Chromium tests on 2026-10-26. [Unit and integration tests](tests/test_game.py) cover all nine literal outcomes and the real Rock-versus-Paper request. [Browser round and replay](tests/e2e/test_round.py) verifies a loss followed by a win using real rules. Supplied invalid/missing-input tests remain intact.
+- Review: inspected the changed code and both new test files against this spec; `git diff --check` passed. Changes are limited to the rules, feature tests, and this spec.
+- Manual browser observation: the student chose Rock, the computer chose Paper, and the page displayed "Computer wins". The student explained that Paper covers Rock and confirmed they could play again.
